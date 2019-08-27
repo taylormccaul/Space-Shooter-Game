@@ -1,28 +1,28 @@
 debug = true
 
--- Timers
--- We declare these here so we don't have to edit them multiple places
+-- Global variables
+
 canShoot = true
 canShootTimerMax = 0.2 
 canShootTimer = canShootTimerMax
 createEnemyTimerMax = 0.4
 createEnemyTimer = createEnemyTimerMax
-createGemTimerMax = 0.9
+createGemTimerMax = 2
 createGemTimer = createGemTimerMax
 
--- Player Object
+-- Player object
 player = { x = 200, y = 510, speed = 130, img = nil }
 isAlive = true
 score = 0
 
 background = { x = 400, y = 710, img = nil }
 
--- Image Storage
+-- Image storage
 bulletImg = nil
 enemyImg = nil
 gemImg = nil
 
--- Entity Storage
+-- Entity storage
 bullets = {} -- array of current bullets being drawn and updated
 enemies = {} -- array of current enemies on screen
 gems = {} -- array of current gems on screen
@@ -137,6 +137,12 @@ function love.update(dt)
 
 		if score >= 50 then
 			enemyImg = love.graphics.newImage('assets/ship1.png')
+			--[[if CheckCollision(enemy.x, enemy.y, enemy.img:getWidth(), enemy.img:getHeight(), player.x, player.y, player.img:getWidth(), player.img:getHeight()) > 1
+			and isAlive then
+				table.remove(bullets, j)
+				table.remove(enemies, i)
+				score = score + 1
+			end]]--
 		end
 
 		if score >= 100 then
@@ -203,7 +209,11 @@ function love.update(dt)
 		canShootTimer = canShootTimerMax
 	end
 
-	if not isAlive and love.keyboard.isDown('r') then
+	if isAlive == false then
+		canShoot = false
+	end
+
+	if isAlive == false and love.keyboard.isDown('r') then
 		-- remove all our bullets and enemies from screen
 		bullets = {}
 		enemies = {}
