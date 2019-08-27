@@ -27,10 +27,6 @@ bullets = {} -- array of current bullets being drawn and updated
 enemies = {} -- array of current enemies on screen
 gems = {} -- array of current gems on screen
 
--- Collision detection taken function from http://love2d.org/wiki/BoundingBox.lua
--- Returns true if two boxes overlap, false if they don't
--- x1,y1 are the left-top coords of the first box, while w1,h1 are its width and height
--- x2,y2,w2 & h2 are the same, but for the second box
 function CheckCollision(x1,y1,w1,h1, x2,y2,w2,h2)
   return x1 < x2+w2 and
          x2 < x1+w1 and
